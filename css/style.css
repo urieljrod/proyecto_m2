@@ -10,11 +10,7 @@ body{
 }
 .header{
     width: 100%;
-    height: 100vh; /* Utilizo vh para que sea una página más responsive */
-    /* Añadimos la imagen pero con un poco de transparencia. Normalmente linear-gradient se usa para ir de un color
-    a otro (de arriba a abajo si se deja por defecto) y hacer una transición. Aquí usamos rgba que es como el código
-    de color rgb, pero la "a" (alpha) es la opacidad que va de 1 (opaco) a 0 (transparente). Con esto hago que la
-    imagen sea un poco transparente y más oscura, ya que en rgb (0,0,0) significa negro */
+    height: 100vh;
     position: relative;
     background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0, 0, 0, 0.6)), url(/img/index/header.jpg);
     background-size: cover; /* Hace que se guarde la escala que tiene por defecto la imagen y su relación aspecto intrínseca */
@@ -24,8 +20,6 @@ body{
 nav{
     display: flex; /* Hago que el contenido del nav sea horizontal en vez de vertical ajustándolas */
     align-items: center; /* El contenido de las flexbox se centra */
-    /* El logo pasa a estar a la izquierda y los botones a la derecha porque hay un espacio entre ellos, ya que el logo
-    es un elemento y los botones como están en el mismo div, son otro elemento conjunto*/
     justify-content: space-between;
     padding: 10px 0; /* Para arriba y abajo 10px y para derecha e izquierda 0% */
 }
@@ -97,7 +91,7 @@ nav button{
     padding: 15px 30px; /* Centramos el texto */
     cursor: pointer;
 }
-/* ---------------------------EMPEZAMOS CON LOS ELEMENTOS DEL BODY---------------------------------------------------- */
+/* ---------------------------BODY---------------------------------------------------- */
 .elementos{
     padding: 50px 12%;
     font-size: 22px;
@@ -106,10 +100,6 @@ nav button{
     display: flex;
     width: 100%;
     align-items: center;
-    /* Poniendo esto, si los elementos no caben en la anchura del contenedor,
-        se creará una nueva línea automáticamente y se continuará colocando los
-        elementos en ella. Sin esta propiedad, los elementos se ajustarían a una
-        sola línea y se reducirían automáticamente para caber en el contenedor. */
     flex-wrap: wrap;
     padding: 50px 0;
 }
@@ -132,15 +122,12 @@ nav button{
     font-weight: 600;
     margin-bottom: 20px;
 }
-
-/* Se usa sobre la imagen 4 que es más grande que las otras, y se hace la selección
-    del atributo "alt" entre corchetes */
 img[alt="imagen4"]{
     width: 70%;
     max-width: 400px;
 }
 
-/* -------------------------------------EMPEZAMOS CON LAS FAQ Y LA INFORMACIÓN -------------------------------- */
+/* ------------------------------------- INFORMACIÓN -------------------------------- */
 .faq{
     padding: 10px 12%;
     text-align: center;
@@ -158,7 +145,6 @@ img[alt="imagen4"]{
 
 .acordeon li {
     list-style: none;
-    /* Así definimos que la lista no tiene propiedades o parámetros a definir */
     width: 100%;
     padding: 5px;
 }
@@ -200,21 +186,12 @@ input[type="radio"] {
     padding: 0 20px;
     max-height: 0; /* Si ponemos esto, estará oculto ya que no tendrá altura para enseñarse */
     overflow: hidden;
-    /* Poniendo esto, hacemos que la transición entre hacer click en una de las preguntas y otra, lleve los segundos
-    que escribimos (0.3) y no se haga de forma brusca, haciendo una pequeña transición */
     transition: max-height 0.5s, padding 0.5s;
 }
-/* Ahora vamos a seleccionar el botón radio que habíamos escondido, añadimos la pseudoclase (:checked)
-   que especifica el estado especial en el que se encuentra el elemento (cuando hacemos click en el botón)
-    y añadimos "+ label + .contenido" entre símbolos + (son combinadores de hermanos adyacentes) que indican que
-    solo ocurre cuando el elemento del botón va inmediatamente antes de una etiqueta label y de una clase
-    contenido. Si coinciden todas esas condiciones se aplican las siguientes condiciones css:*/
 .acordeon input[type="radio"]:checked + label + .contenido{
     max-height: 800px;
     padding: 30px 30px;
 }
-/* Ahora, seleccionamos lo mismo pero con la condición que después de que esté con el check, es decir, si y solo si
-   está con el check sucede lo siguiente: */
 .acordeon input[type="radio"]:checked+label::after{
     transform: rotate(135deg); /* Hacemos que el símbolo + rote 135 grados al pulsar en una de las preguntas. Se convierte en una x */
 }
@@ -267,7 +244,6 @@ input[type="radio"] {
     margin-bottom: 10px;
 }
 /* -----------------------ARREGLOS DE CSS PARA PANTALLAS PEQUEÑAS--------------------------------------------------------------- */
-/* Esto es para las pantallas que sean menores de 600px */
 @media only screen and (max-width:600px){
     /* -----------------------ARREGLOS DEL HEADER--------------------------------------- */
     .logo{
@@ -301,17 +277,7 @@ input[type="radio"] {
     .elementos p{
         font-size: 15px;
     }
-    /* Seleccionamos los elementos que van dentro de la etiqueta con clase "fila" con su pseudoclase 
-        de css ":nth child()" las posiciones 2 y 4, es decir, las etiquetas div con clase "fila" pares
-        (hay solo 4 div con clase "fila")  */
     .fila:nth-child(2),.fila:nth-child(4){
-        /* Como estamos tratando a las etiquetas div con clase "fila" como flexbox, usando la propiedad
-        flex-direction, elegimos cómo sus elementos se posicionan. Con "column-reverse" lo que hacemos es
-        que el elemento inicial (<div class="columna-imagen">) sea el elemento final ahora, y que el elemento
-        final anterior (<div class="columna-texto">) sea el elemento inicial. Esto lo hacemos para que al 
-        hacer scroll en una pantalla pequeña, siempre se vea primero el texto y luego la imagen, si no lo 
-        pusiéramos, los elementos se verían: texto, imagen, imagen, texto, texto, imagen, imagen, texto.
-        Y ahora se ven: texto, imagen, texto, imagen, texto, imagen, texto, imagen */
         flex-direction: column-reverse;
     }
     .elementos .fila{
